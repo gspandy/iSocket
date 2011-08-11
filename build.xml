@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="isocket" basedir="." default="main">
+
+	<!-- =================================================================== -->
+	<!-- 变量设置 -->
+	<!-- =================================================================== -->
+	<property environment="env" />
+	<property name="prop.tmp" value="prop_tmp" />
+	<native2ascii src="." dest="${prop.tmp}" includes="build.properties" />
+	<property file="${prop.tmp}/build.properties" />
+	<delete dir="${prop.tmp}" />
+	<property name="project.root" value="${basedir}" />
+
+	<property name="name" value="isocket" />
+
+	<property name="isocket-server.file" value="${dist.libs.dir}/isocket-server-${project.revision}.jar" />
+
+	<property name="isocket-client.file" value="${dist.libs.dir}/isocket-client-${project.revision}.jar" />
+
+	<property name="java.source" value="1.6" />
+	<property name="java.target" value="1.6" />
+
+	<property name="JAVA_HOME" value="${java.home}" />
+
+	<property name="jar.postfix" value=".jar" />
+
+
+	<!-- 临时编译目录 -->
+	<property name="build.dir" value="${project.root}/build" />
+	<property name="build.lib.dir" value="${project.root}/lib" />
+	<property name="build.classes.dir" value="${build.dir}/classes" />
+	<property name="build.test.dir" value="${build.dir}/test" />
+
+	<property name="build.coverage.dir" value="${build.dir}/coverage" />
+	<property name="build.test.dir" value="${build.dir}/test" />
+	<property name="build.doc.junit.dir" value="${project.root}/doc/junit" />
+	<property name="build.doc.coverage.dir" value="${project.root}/doc/coverage" />
+
+	<!-- 代码目录 -->
+	<property name="src.dir" value="${project.root}/src" />
+	<property name="src.java.dir" value="${src.dir}/java" />
+	<property name="src.test.dir" value="${src.dir}/test.unit" />
+	<property name="src.mock.dir" value="${src.dir}/mock" />
+	<property name="src.schema.dir" value="${src.dir}/schema" />
+
+	<!-- timestamp -->
+	<tstamp>
+		<format property="TODAY" pattern="yyyy-MM-dd HH:mm:ss" />
+	</tstamp>
+
+
+	<!-- classpath -->
+
+	<path id="master-classpath">
+		<fileset dir="${build.lib.dir}">
+		</fileset>
+		<fileset dir="${JAVA_HOME}/lib">
+			<include name="tools.jar" />
+		</fileset>
+		<fileset dir="D:/opensource/grizzly2.1">
+			<include name="grizzly-framework-2.1.1.jar" />
+		</fileset>
+
+		<fileset dir="D:/opensource/slf4j-1.5.11">
+			<include name="slf4j-log4j12-1.5.11.jar" />
+			<include name="slf4j-ext-1.5.11.jar" />
+			<include name="slf4j-api-1.5.11.jar" />
+		</fileset>
+
+		<fileset dir="D:/opensource/apache/apache-log4j-1.2.16">
+			<include name="log4j-1.2.16.jar" />
+		</fileset>
+
+		<fileset dir="D:/opensource/apache/commons-lang-2.6">
+			<include name="commons-lang-2.6.jar" />
+		</fileset>
+
+		<fileset dir="D:/opensource/xstream-1.3.1/lib">
+			<include name="jettison-1.0.1.jar" />
+			<include name="xpp3_min-1.1.4c.jar" />
+			<include name="xstream-1.3.1.jar" />
+		</fileset>
+
+		<fileset dir="D:/opensource/junit/junit4.8">
+			<include name="junit-4.8.1.jar" />
+		</fileset>
+
+
+		<fileset dir="D:/opensource/spring-framework-3.0.2/dependencies/org.apache.commons">
+			<include name="com.springsource.org.apache.commons.beanutils/1.8.0/com.springsource.org.apache.commons.beanutils-1.8.0.jar" />
+			<include name="com.springsource.org.apache.commons.logging/1.1.1/com.springsource.org.apache.commons.logging-1.1.1.jar" />
+			<include name="com.springsource.org.apache.commons.collections/3.2.1/com.springsource.org.apache.commons.collections-3.2.1.jar" />
+			<include name="com.springsource.org.apache.commons.digester/1.8.1/com.springsource.org.apache.commons.digester-1.8.1.jar" />
+			<include name="com.springsource.org.apache.commons.codec/1.3.0/com.springsource.org.apache.commons.codec-1.3.0.jar" />
+		</fileset>
+
+		<fileset dir="D:/opensource/apache/xerces-2_11_0">
+			<include name="xercesImpl.jar" />
+		</fileset>
+
+		<fileset dir="D:/opensource/apache/xerces-2_11_0">
+			<include name="xml-apis.jar" />
+		</fileset>
+
+		<fileset dir="D:/opensource/easymock-3.0">
+			<include name="easymock-3.0.jar" />
+		</fileset>
+
+		<fileset dir="D:/opensource/easymockclassextension-3.0">
+			<include name="easymockclassextension-3.0.jar" />
+		</fileset>
+
+		<fileset dir="D:/opensource/spring-framework-3.0.2/dependencies/net.sourceforge.cglib/com.springsource.net.sf.cglib/2.2.0">
+			<include name="com.springsource.net.sf.cglib-2.2.0.jar" />
+		</fileset>
+
+		<fileset dir="D:/opensource/ldapjdk_4.1">
+			<include name="ldapjdk_4.1.jar" />
+		</fileset>
+		
+		
+	  <fileset dir="D:/soft/glassfishv3/glassfish/modules">
+			<include name="gmbal.jar" />
+			<include name="management-api.jar" />
+		</fileset>
+	
+
+		<fileset dir="lib">
+			<include name="young-icore-0.9.jar" />
+		</fileset>
+
+	</path>
+
+	<target name="usage">
+		<echo message="" />
+		<echo message="iSocket build file" />
+		<echo message="------------------------------------------------------" />
+		<echo message="" />
+		<echo message="Available targets are:" />
+		<echo message="main      --> compile and release " />
+		<echo message="clean     --> clean output dirs" />
+		<echo message="compile   --> compile all classes" />
+		<echo message="build     --> build iSocket core jar file" />
+		<echo message="javadoc   --> generate javadoc api file" />
+		<echo message="" />
+	</target>
+
+	<target name="main" depends="clean,init,compile,build" />
+
+	<!-- =================================================================== -->
+	<!-- 初始化，创建目录 -->
+	<!-- =================================================================== -->
+	<target name="init" description="创建目录" depends="usage">
+		<mkdir dir="${build.classes.dir}" />
+		<mkdir dir="${build.lib.dir}" />
+		<mkdir dir="${build.test.dir}" />
+		<mkdir dir="${dist.libs.dir}" />
+	</target>
+
+	<!-- =================================================================== -->
+	<!-- 清空所有输出文件包括build和部署目录 -->
+	<!-- =================================================================== -->
+	<target name="clean" description="清空所有输出文件包括build和部署目录 ">
+		<property name="build.classes.dir" value="${build.dir}/classes" />
+		<property name="build.test.dir" value="${build.dir}/test" />
+		<delete dir="${build.classes.dir}" />
+		<delete dir="${build.test.dir}" />
+		<delete dir="${dist.libs.dir}" />
+	</target>
+
+	<target name="compile">
+		<echo>
+     jdk source="${java.source}" target="${java.target}" 
+    </echo>
+		<mkdir dir="${build.classes.dir}" />
+		<javac destdir="${build.classes.dir}" includeAntRuntime="false" debug="true" deprecation="false" optimize="false" encoding="utf-8" source="${java.source}" target="${java.target}" failonerror="true">
+			<src path="${src.dir}/java" />
+			<classpath refid="master-classpath" />
+		</javac>
+
+	</target>
+
+	<target name="compile_test">
+		<!--编译测试代码-->
+		<mkdir dir="${build.test.dir}" />
+		<javac destdir="${build.test.dir}" debug="true" deprecation="false" optimize="false" source="${java.source}" target="${java.target}" failonerror="true">
+			<src path="${src.dir}/test.unit" />
+			<classpath refid="master-classpath" />
+			<classpath location="${build.classes.dir}" />
+		</javac>
+		<copy todir="${build.test.dir}">
+			<fileset dir="${src.dir}/test.unit">
+				<exclude name="**/*.java" />
+			</fileset>
+		</copy>
+
+	</target>
+
+	<target name="build" depends="compile" description="generate iSocket jar file">
+
+		<jar jarfile="${isocket-client.file}" compress="true" update="true">
+
+			<fileset dir="${build.classes.dir}">
+				<include name="org/young/isocket/util/**/*.class" />
+				<include name="org/young/isokcet/filter/**/Client*.class" />
+				<include name="org/young/isokcet/service/ServiceRequest.class" />
+				<include name="org/young/isokcet/service/ServiceResponse.class" />
+				<include name="org/young/isokcet/exception/**/*.class" />
+				<include name="org/young/isokcet/validatior/**/*.class" />
+				<include name="org/young/isokcet/client/**/*.class" />
+			</fileset>
+
+			<manifest>
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Version" value="${project.revision}" />
+				<attribute name="CreateTime" value="${TODAY}" />
+				<attribute name="Class-Path" value="${isocket_cp}" />
+			</manifest>
+		</jar>
+
+		<jar jarfile="${isocket-server.file}" compress="true" update="true">
+
+			<fileset dir="${build.classes.dir}">
+				<exclude name="org/young/isokcet/filter/**/Client*.class" />
+				<exclude name="org/young/isokcet/client/**/*.class" />
+			</fileset>
+
+			<manifest>
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Version" value="${project.revision}" />
+				<attribute name="CreateTime" value="${TODAY}" />
+				<attribute name="Class-Path" value="${isocket_cp}" />
+			</manifest>
+		</jar>
+		
+		
+	  <copy todir="${dist.libs.dir}">
+	      <fileset dir="${src.dir}/config/classpath">
+	        <include name="**/*.properties" />
+	      </fileset>
+	    </copy>
+
+	</target>
+
+	<target name="javadoc" description="Generate JavaDoc API docs">
+		<javadoc sourcepath="${src.dir}/java" destdir="${project.root}/doc/api" packagenames="*" author="true" private="true" windowtitle="${project.name} API Documentation" doctitle="&lt;h1&gt;${project.name} Documentation (Version ${project.revision})&lt;/h1&gt;" bottom="Copyright (C) 2011">
+			<classpath refid="master-classpath" />
+		</javadoc>
+	</target>
+
+	<target name="checksum" description="Generate checksum file for jar and pom">
+		<checksum algorithm="SHA1" fileext=".sha1">
+			<fileset dir="${dist.libs.dir}">
+				<include name="**/*.jar" />
+			</fileset>
+		</checksum>
+		<checksum algorithm="MD5" fileext=".md5">
+			<fileset dir="${dist.libs.dir}">
+				<include name="**/*.jar" />
+			</fileset>
+		</checksum>
+	</target>
+
+
+</project>

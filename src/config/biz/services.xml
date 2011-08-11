@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<services>
+  <!-- systemid&seqid -->
+  <service id="1000010001"
+    class="org.young.isokcet.service.TestService"
+    desc="测试的服务1" >
+  </service>
+  <service id="1000010002"
+    class="org.young.isokcet.service.TestErrorService"
+    desc="测试的服务2" >
+  </service>
+  <service id="0000000001"
+    class="org.young.isokcet.authentication.AuthService"
+    desc="认证服务" >
+  </service>
+</services>

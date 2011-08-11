@@ -1,0 +1,52 @@
+2011-7-28 17:30:11 org.glassfish.gmbal.util.GenericConstructor create
+警告: Error invoking constructor
+java.lang.reflect.InvocationTargetException
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
+	at java.lang.reflect.Constructor.newInstance(Unknown Source)
+	at org.glassfish.gmbal.util.GenericConstructor.create(GenericConstructor.java:123)
+	at org.glassfish.gmbal.ManagedObjectManagerFactory.createStandalone(ManagedObjectManagerFactory.java:104)
+	at org.glassfish.grizzly.monitoring.jmx.GrizzlyJmxManager$DefaultJmxManager.<init>(GrizzlyJmxManager.java:120)
+	at org.glassfish.grizzly.monitoring.jmx.GrizzlyJmxManager.<clinit>(GrizzlyJmxManager.java:62)
+	at org.young.isokcet.threadpool.JobDispatcher.init(JobDispatcher.java:237)
+	at org.young.isokcet.threadpool.JobDispatcher.<init>(JobDispatcher.java:153)
+	at org.young.isokcet.filter.ThreadPoolFilter.<init>(ThreadPoolFilter.java:41)
+	at org.young.isokcet.server.NIOSocketServer.buildTCPNIOTransport(NIOSocketServer.java:353)
+	at org.young.isokcet.server.NIOSocketServer.doStart(NIOSocketServer.java:301)
+	at org.young.isokcet.server.AbstractLifeCycle.start(AbstractLifeCycle.java:52)
+	at org.young.isokcet.server.NIOSocketServer.main(NIOSocketServer.java:441)
+Caused by: java.lang.NoClassDefFoundError: org/glassfish/external/statistics/StringStatistic
+	at org.glassfish.gmbal.impl.ManagedObjectManagerImpl.<init>(ManagedObjectManagerImpl.java:289)
+	at org.glassfish.gmbal.impl.ManagedObjectManagerImpl.<init>(ManagedObjectManagerImpl.java:356)
+	... 15 more
+Caused by: java.lang.ClassNotFoundException: org.glassfish.external.statistics.StringStatistic
+	at java.net.URLClassLoader$1.run(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(Unknown Source)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Unknown Source)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	... 17 more
+2011-7-28 17:30:11 org.glassfish.gmbal.util.GenericConstructor create
+警告: Error invoking constructor
+java.lang.reflect.InvocationTargetException
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
+	at java.lang.reflect.Constructor.newInstance(Unknown Source)
+	at org.glassfish.gmbal.util.GenericConstructor.create(GenericConstructor.java:123)
+	at org.glassfish.gmbal.ManagedObjectManagerFactory.createStandalone(ManagedObjectManagerFactory.java:104)
+	at org.glassfish.grizzly.monitoring.jmx.GrizzlyJmxManager$DefaultJmxManager.<init>(GrizzlyJmxManager.java:120)
+	at org.glassfish.grizzly.monitoring.jmx.GrizzlyJmxManager.<clinit>(GrizzlyJmxManager.java:62)
+	at org.young.isokcet.threadpool.JobDispatcher.init(JobDispatcher.java:237)
+	at org.young.isokcet.threadpool.JobDispatcher.<init>(JobDispatcher.java:153)
+	at org.young.isokcet.filter.ThreadPoolFilter.<init>(ThreadPoolFilter.java:41)
+	at org.young.isokcet.server.NIOSocketServer.buildTCPNIOTransport(NIOSocketServer.java:353)
+	at org.young.isokcet.server.NIOSocketServer.doStart(NIOSocketServer.java:301)
+	at org.young.isokcet.server.AbstractLifeCycle.start(AbstractLifeCycle.java:52)
+	at org.young.isokcet.server.NIOSocketServer.main(NIOSocketServer.java:441)
+Caused by: java.lang.NoClassDefFoundError: org/glassfish/external/statistics/StringStatistic
+	at org.glassfish.gmbal.impl.ManagedObjectManagerImpl.<init>(ManagedObjectManagerImpl.java:289)
+	at org.glassfish.gmbal.impl.ManagedObjectManagerImpl.<init>(ManagedObjectManagerImpl.java:356)
+	... 15 more
