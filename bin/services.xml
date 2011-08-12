@@ -9,8 +9,8 @@
     class="org.young.isokcet.service.TestErrorService"
     desc="测试的服务2" >
   </service>
-  <service id="0000000001"
+ <!--  <service id="0000000001"
     class="org.young.isokcet.authentication.AuthService"
     desc="认证服务" >
-  </service>
+  </service> -->
 </services>

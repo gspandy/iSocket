@@ -117,6 +117,7 @@ public class ClientAuthFilterTest {
         ServiceResponse message = new ServiceResponse();
         message.setResponseCode(SocketKeys.RESPONSE_CODE_SUCCESS);
         message.setResponseObject("1");
+        message.setServiceId(SocketKeys.SERVICE_ID_AUTH);
         ctx.setMessage(message);
         try {
             Connection connection = ctx.getConnection();
@@ -141,6 +142,7 @@ public class ClientAuthFilterTest {
         ServiceResponse message = new ServiceResponse();
         message.setResponseCode(SocketKeys.RESPONSE_CODE_SERVICEERROR);
         message.setResponseMessage("error");
+        message.setServiceId(SocketKeys.SERVICE_ID_AUTH);
         ctx.setMessage(message);
         try {
             Connection connection = ctx.getConnection();
@@ -165,6 +167,7 @@ public class ClientAuthFilterTest {
         message.setResponseCode(SocketKeys.RESPONSE_CODE_SUCCESS);
         message.setResponseObject("1");
         message.setSessionId("1");
+        message.setServiceId(SocketKeys.SERVICE_ID_AUTH);
         ctx.setMessage(message);
 
         try {
@@ -188,9 +191,10 @@ public class ClientAuthFilterTest {
         FilterChainContext ctx = f.getFilterChainContext();
         ctx.getInternalContext().setProcessor(new NullProcessor());
         ServiceResponse message = new ServiceResponse();
-        message.setResponseCode(SocketKeys.RESPONSE_CODE_SUCCESS);
+        message.setResponseCode(SocketKeys.RESPONSE_CODE_AUTHENTICATIONERROR);
         message.setResponseObject("1");
         message.setSessionId("2");
+        message.setServiceId(SocketKeys.SERVICE_ID_AUTH);
         ctx.setMessage(message);
 
         try {

@@ -49,7 +49,7 @@ public class ServiceControllerTest {
         Assert.assertEquals(response.getResponseCode(), SocketKeys.RESPONSE_CODE_SUCCESS);
     }
 
-    @Test
+    //@Test
     public void testInvokeFailure() {
         ServiceRequest message1 = new ServiceRequest();
         message1.setId("11111111111111111111111111111122");

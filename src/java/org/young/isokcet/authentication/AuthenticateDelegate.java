@@ -59,6 +59,21 @@ public class AuthenticateDelegate {
     @PropertiesAnnotation(name = "ldapcachesize", resource = "isocket-server.properties")
     private int cacheSize = 10 * 1024 * 1024;
 
+    
+
+    private ConnectionPool pool;
+
+    private ConnectionPool cachePool;
+
+    private LDAPCache cache;
+
+    private Matcher userFilter;
+
+    private final ReentrantLock lock = new ReentrantLock();
+    
+    private static boolean isInit = false;
+    
+    
     public String getUserFilterKey() {
         return userFilterKey;
     }
@@ -175,18 +190,12 @@ public class AuthenticateDelegate {
         return lock;
     }
 
-    private ConnectionPool pool;
-
-    private ConnectionPool cachePool;
-
-    private LDAPCache cache;
-
-    private Matcher userFilter;
-
-    private final ReentrantLock lock = new ReentrantLock();
-
-    public AuthenticateDelegate() throws LDAPException {
-        PropertiesLoaderUtils.setPropertiesFields(this);
+    public AuthenticateDelegate() throws LDAPException  {
+    	 init();
+    }
+    
+    private void init() throws LDAPException  {
+    	PropertiesLoaderUtils.setPropertiesFields(this);
         System.out.println("min:" + min + ",max:" + max + ",host:" + host + ",port:" + port + ",principal:" + principal
                 + ",credential:" + credential);
         pool = new ConnectionPool(min, max, host, port, principal, credential);
@@ -194,6 +203,8 @@ public class AuthenticateDelegate {
 
         userFilter = Pattern.compile("%u", Pattern.CASE_INSENSITIVE).matcher(userFilterKey);
         cache = new LDAPCache(cacheTimeout, cacheSize);
+        
+        isInit =true;
     }
 
     public boolean authenticate(String userName, String password) throws LDAPException {
