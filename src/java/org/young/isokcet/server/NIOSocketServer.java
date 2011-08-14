@@ -101,7 +101,7 @@ public class NIOSocketServer extends AbstractLifeCycle {
     @PropertiesAnnotation(name = "serverwritebuffer", resource = "isocket-server.properties")
     private int writeBufferSize;
 
-    private static NIOSocketServer nioSocketServer = new NIOSocketServer();
+    private final static NIOSocketServer nioSocketServer = new NIOSocketServer();
 
     private TCPNIOTransport transport;
 
@@ -306,6 +306,20 @@ public class NIOSocketServer extends AbstractLifeCycle {
 
             // start the transport
             transport.start();
+            
+            
+            //add shutdown hook
+            Runtime.getRuntime().addShutdownHook(new Thread() {
+                public void run() {
+                	try {
+                		logger.warn("server is interrupted!");
+                		System.err.println("server is interrupted!");
+						nioSocketServer.stop();
+					} catch (Exception e) {
+						logger.error("shut down server error.", e);
+					}
+                }
+            });
 
             join();//不退出jvm
 
@@ -383,7 +397,7 @@ public class NIOSocketServer extends AbstractLifeCycle {
     }
 
     @Override
-    public void doStop() throws Exception {
+    protected void doStop() throws Exception {
         try {
 
             if (this.transport != null) {
