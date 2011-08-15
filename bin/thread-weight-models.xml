@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <threadweightmodels>
-  <!-- key is service id -->
-	<threadweightmodel key="1000010001" type="leave">
+  <threadweightmodel key="1000010001" type="leave">
 		2
    </threadweightmodel>
 	<threadweightmodel key="1000010002" type="leave">
